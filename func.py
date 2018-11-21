@@ -48,3 +48,25 @@ def colourization(Wavelength):
 
     return Red, Green, Blue, factor
 
+def circunferencia(wavelength): #cria vector com as circunferencias a delimitar
+    k=numpy.zeros(6)
+    for x in range(6):
+        k[x]+=wavelength*(x+1)
+
+    return k
+
+def desenho(vector, n, d, lambluz, section, i):
+
+    #section = numpy.tile([1, 0], 12) # vetor para identificar cor
+
+    franjas = n*2*(d*10**-4)/(lambluz*10**-6) # formula do enunciado para nº de franjas
+
+
+    if numpy.floor(franjas)>i : # verifica se o numero de franjas aumentou
+        i=numpy.floor(franjas)
+        section.rotate(1)         #caso sim ele da switch de cor branco pa preto
+
+    for x in range(6):  # diminui progressivamente a imagem para representar o movimento
+        vector[x]= vector[x]-(700*(franjas-numpy.floor(franjas))) #
+
+    return franjas, vector, section, i
