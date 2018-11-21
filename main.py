@@ -11,5 +11,3 @@ print(colourization(700))
 print(circunferencia(700))
 
 print(desenho(circunferencia(700),1,1,680,section,i))
-
-desenho(circunferencia(700),1,1,680,section,i)
