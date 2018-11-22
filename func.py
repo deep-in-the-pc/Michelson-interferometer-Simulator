@@ -2,7 +2,7 @@ import numpy
 
 
 def desfazamento(l1, l2, n, lambluz):
-    x = float(2 * numpy.pi * (l1 - l2) * n / (lambluz * 10 ** -9))
+    x = float(2 * numpy.pi * (l1 - l2) * n / (lambluz * 10 ** -6))
     return x
 
 def colourization(Wavelength):
@@ -57,7 +57,7 @@ def circunferencia(wavelength): #cria vector com as circunferencias a delimitar
 
 
 def franj(n,d,lambluz):
-    franjas = n * 2 * (d * 10 ** -7) / (lambluz * 10 ** -6)  # formula do enunciado para nº de franjas
+    franjas = n * 2 * (d * 10 ** -6) / (lambluz * 10 ** -6)  # formula do enunciado para nº de franjas
 
     return franjas
 
