@@ -2,7 +2,7 @@ import numpy
 
 
 def desfazamento(l1, l2, n, lambluz):
-    x = float(2 * numpy.pi * (l1 - l2) * n / (lambluz * 10 ** -6))
+    x = float(2 * numpy.pi * (l1 - l2) * n / (lambluz * 10 ** -9))
     return x
 
 def colourization(Wavelength):
@@ -53,20 +53,31 @@ def circunferencia(wavelength): #cria vector com as circunferencias a delimitar
     for x in range(6):
         k[x]+=wavelength*(x+1)
 
-    return k
+    return tuple(k)
 
-def desenho(vector, n, d, lambluz, section, i):
 
+def franj(n,d,lambluz):
+    franjas = n * 2 * (d * 10 ** -7) / (lambluz * 10 ** -6)  # formula do enunciado para nº de franjas
+
+    return franjas
+
+def desenho(vector, section, i, franjas,lambluz):
     #section = numpy.tile([1, 0], 12) # vetor para identificar cor
 
-    franjas = n*2*(d*10**-4)/(lambluz*10**-6) # formula do enunciado para nº de franjas
-
-
+    #movimento do valor de franjas (neste caso de o d desce ou sobe)
     if numpy.floor(franjas)>i : # verifica se o numero de franjas aumentou
+        section=numpy.roll(section,int(numpy.floor(franjas)-i))         #caso sim ele da switch de cor branco pa preto
         i=numpy.floor(franjas)
-        section.rotate(1)         #caso sim ele da switch de cor branco pa preto
+
+    if numpy.floor(franjas)<i : # verifica se o numero de franjas diminuiu
+        section=numpy.roll(section,-1)
+        i=numpy.floor(franjas)
+
+
+
+    sender=numpy.zeros(6)#vetor para enviar pq o vector[x] agr é um tupple
 
     for x in range(6):  # diminui progressivamente a imagem para representar o movimento
-        vector[x]= vector[x]-(700*(franjas-numpy.floor(franjas))) #
+        sender[x]= vector[x]-(lambluz*(franjas-numpy.floor(franjas))) #o vector[x]tem que ser tupple para
 
-    return franjas, vector, section, i
+    return franjas, sender, i ,section
