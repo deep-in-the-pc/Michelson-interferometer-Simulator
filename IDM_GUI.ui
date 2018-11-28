@@ -135,16 +135,6 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="IR_label">
-       <property name="text">
-        <string>Índice de refração</string>
-       </property>
-       <property name="wordWrap">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
      <item row="6" column="1">
       <widget class="QLineEdit" name="IR_lineEdit">
        <property name="maximumSize">
@@ -155,7 +145,47 @@
        </property>
       </widget>
      </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="IR_label">
+       <property name="text">
+        <string>Índice de refração</string>
+       </property>
+       <property name="wordWrap">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </widget>
+   <widget class="QGraphicsView" name="Franjas_graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>340</y>
+      <width>202</width>
+      <height>202</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="Scheme_graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>30</y>
+      <width>411</width>
+      <height>271</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="Wave_graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>185</x>
+      <y>211</y>
+      <width>151</width>
+      <height>91</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
