@@ -41,23 +41,41 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        #INTERFACE CALLBACKS
+        ###INTERFACE CALLBACKS
 
+        #Sliders
         self.ui.L1_horizontalSlider.valueChanged.connect(self.onL1SliderMoveCallBack)
         self.ui.L2_horizontalSlider.valueChanged.connect(self.onL2SliderMoveCallBack)
         self.ui.Lambda_horizontalSlider.valueChanged.connect(self.onLambdaSliderMoveCallBack)
 
+        #Line Edits
+
+        self.ui.L1_lineEdit.editingFinished.connect(self.onL1LineEditChangeCallBack)
+        self.ui.L2_lineEdit.editingFinished.connect(self.onL2LineEditChangeCallBack)
+        self.ui.Lambda_lineEdit.editingFinished.connect(self.onLambdaLineEditChangeCallBack)
+
     def onL1SliderMoveCallBack(self):
 
-        self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()) + " mm")
+        self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()))
 
     def onL2SliderMoveCallBack(self):
 
-        self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()) + " mm")
+        self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()))
 
     def onLambdaSliderMoveCallBack(self):
 
-        self.ui.Lambda_lineEdit.setText(str(self.ui.Lambda_horizontalSlider.value()) + " nm")
+        self.ui.Lambda_lineEdit.setText(str(self.ui.Lambda_horizontalSlider.value()))
+
+    def onL1LineEditChangeCallBack(self):
+
+        self.ui.L1_horizontalSlider.setValue(int(self.ui.L1_lineEdit.text()[:-3]))
+
+    def onL2LineEditChangeCallBack(self):
+
+        self.ui.L2_horizontalSlider.setValue(int(self.ui.L2_lineEdit.text()[:-3]))
+
+    def onLambdaLineEditChangeCallBack(self):
+        self.ui.Lambda_horizontalSlider.setValue(int(self.ui.Lambda_lineEdit.text()[:-3]))
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
