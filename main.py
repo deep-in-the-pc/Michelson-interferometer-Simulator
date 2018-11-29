@@ -29,6 +29,7 @@
 
 #print(desenho(tppcomp,section,cont, franja,comprimento))
 
+from func import *
 from PyQt5 import QtWidgets
 from IDM_GUI_QT5 import Ui_MainWindow
 import sys
@@ -40,6 +41,23 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        #INTERFACE CALLBACKS
+
+        self.ui.L1_horizontalSlider.valueChanged.connect(self.onL1SliderMoveCallBack)
+        self.ui.L2_horizontalSlider.valueChanged.connect(self.onL2SliderMoveCallBack)
+        self.ui.Lambda_horizontalSlider.valueChanged.connect(self.onLambdaSliderMoveCallBack)
+
+    def onL1SliderMoveCallBack(self):
+
+        self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()) + " mm")
+
+    def onL2SliderMoveCallBack(self):
+
+        self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()) + " mm")
+
+    def onLambdaSliderMoveCallBack(self):
+
+        self.ui.Lambda_lineEdit.setText(str(self.ui.Lambda_horizontalSlider.value()) + " nm")
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
