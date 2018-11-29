@@ -64,6 +64,15 @@
          <height>16777215</height>
         </size>
        </property>
+       <property name="inputMask">
+        <string>D000 mm</string>
+       </property>
+       <property name="text">
+        <string>1 mm</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="2" column="1">
@@ -97,10 +106,19 @@
          <height>16777215</height>
         </size>
        </property>
+       <property name="inputMask">
+        <string>D000 mm</string>
+       </property>
+       <property name="text">
+        <string>1 mm</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QSlider" name="Lambda_horizontalSlider_3">
+      <widget class="QSlider" name="Lambda_horizontalSlider">
        <property name="minimum">
         <number>380</number>
        </property>
@@ -133,6 +151,15 @@
          <height>16777215</height>
         </size>
        </property>
+       <property name="inputMask">
+        <string>D99 \nm</string>
+       </property>
+       <property name="text">
+        <string>380 nm</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="6" column="1">
@@ -142,6 +169,15 @@
          <width>64</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="inputMask">
+        <string>0D.00</string>
+       </property>
+       <property name="text">
+        <string>1.0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
