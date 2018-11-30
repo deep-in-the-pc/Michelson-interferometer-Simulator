@@ -55,11 +55,23 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # self.dot1.setFont(font)
         # self.dot1.setPos(140, 0)
         # self.scene.addItem(self.dot1)
-        self.circ1= QtWidgets.QGraphicsEllipseItem(50,50,100,100) #(pos x,pos y,largura,altura)
-        self.circ1.setBrush(QtGui.QBrush(QtCore.Qt.green))
+        self.circ1 = QtWidgets.QGraphicsEllipseItem(0, 0, 200, 200)  # posx e posy sao o canto superior esquerdo
+        # self.circ3.setPen(QtGui.QPen(QtCore.Qt.red, 25))
+        self.circ1.setBrush(QtGui.QBrush(QtCore.Qt.red))
         self.scene.addItem(self.circ1)
+
         self.circ2= QtWidgets.QGraphicsEllipseItem(25,25,150,150) #posx e posy sao o canto superior esquerdo
+        self.circ2.setBrush(QtGui.QBrush(QtCore.Qt.white))
         self.scene.addItem(self.circ2)
+
+        self.circ3= QtWidgets.QGraphicsEllipseItem(50,50,100,100) #(pos x,pos y,largura,altura)
+        self.circ3.setBrush(QtGui.QBrush(QtCore.Qt.red))
+        self.scene.addItem(self.circ3)
+
+        self.circ4= QtWidgets.QGraphicsEllipseItem(75,75,50,50) #(pos x,pos y,largura,altura)
+        self.circ4.setBrush(QtGui.QBrush(QtCore.Qt.white))
+        self.scene.addItem(self.circ4)
+
         # self.brush=QBrs
 
         ###INTERFACE CALLBACKS
