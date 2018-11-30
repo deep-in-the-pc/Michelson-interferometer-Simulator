@@ -30,7 +30,7 @@
 #print(desenho(tppcomp,section,cont, franja,comprimento))
 
 from func import *
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui, QtCore
 from IDM_GUI_QT5 import Ui_MainWindow
 import sys
 
@@ -40,6 +40,27 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        font = QtGui.QFont('White Rabbit')
+        font.setPointSize(120)
+        brush1= QtGui.QBrush()
+        pen1 = QtGui.QPen()
+        # rect=.QtWidgets.QRec
+        # Since the UI is a QGraphicsView, I create a Scene
+        # so it has something to show
+        self.scene = QtWidgets.QGraphicsScene()
+        # self.extcrect= QtWidgets.QGraphicsRectItem(20,10,300,200)
+        # self.extcrect.setBrush()
+        self.scene.setSceneRect(0, 0, 200, 200)
+        # self.dot1 = QtWidgets.QGraphicsTextItem(':')
+        # self.dot1.setFont(font)
+        # self.dot1.setPos(140, 0)
+        # self.scene.addItem(self.dot1)
+        self.circ1= QtWidgets.QGraphicsEllipseItem(50,50,100,100) #(pos x,pos y,largura,altura)
+        self.circ1.setBrush(QtGui.QBrush(QtCore.Qt.green))
+        self.scene.addItem(self.circ1)
+        self.circ2= QtWidgets.QGraphicsEllipseItem(25,25,150,150) #posx e posy sao o canto superior esquerdo
+        self.scene.addItem(self.circ2)
+        # self.brush=QBrs
 
         ###INTERFACE CALLBACKS
 
@@ -57,6 +78,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def onL1SliderMoveCallBack(self):
 
         self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()))
+        # self.exactRect = QtWidgets.QGraphicsRectItem(20, 10, 300, 200)
+        # self.ui.Franjas_graphicsView.setSceneRect(self.exactRect)
+        self.ui.Franjas_graphicsView.setScene(self.scene)
+        #self.scene.addLine(5)
+        #self.ui.Franjas_graphicsView.items(1)
+
+
 
     def onL2SliderMoveCallBack(self):
 
@@ -76,6 +104,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def onLambdaLineEditChangeCallBack(self):
         self.ui.Lambda_horizontalSlider.setValue(int(self.ui.Lambda_lineEdit.text()[:-3]))
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
