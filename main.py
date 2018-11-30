@@ -71,6 +71,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.circ4= QtWidgets.QGraphicsEllipseItem(75,75,50,50) #(pos x,pos y,largura,altura)
         self.circ4.setBrush(QtGui.QBrush(QtCore.Qt.white))
         self.scene.addItem(self.circ4)
+        self.ui.Franjas_graphicsView.setScene(self.scene)
 
         # self.brush=QBrs
 
@@ -101,6 +102,24 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def onL2SliderMoveCallBack(self):
 
         self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()))
+        kk=self.ui.L2_horizontalSlider.value()
+        self.scene.clear()
+        ka=[50,100,150,200]
+        # self.circ4 = QtWidgets.QGraphicsEllipseItem(kk/10, kk/10, 200-(kk/5), 200-(kk/5))  # (pos x,pos y,largura,altura)
+        # self.circ4.setBrush(QtGui.QBrush(QtCore.Qt.white))
+        # self.scene.addItem(self.circ4)
+        # self.circ5 = QtWidgets.QGraphicsEllipseItem(25+(kk/10), 25+(kk/10), 150-(kk/5), 150-(kk/5))  # (pos x,pos y,largura,altura)
+        # self.circ5.setBrush(QtGui.QBrush(QtCore.Qt.red))
+        # self.scene.addItem(self.circ5)
+        for i in range(0,200,50):
+            self.circ = QtWidgets.QGraphicsEllipseItem((i/2)+(kk/10),(i/2)+(kk/10), 200-i-(kk/5), 200-i-(kk/5))  # (pos x,pos y,largura,altura)
+            if (i%100)==0:
+                self.circ.setBrush(QtGui.QBrush(QtCore.Qt.red))
+            else:
+                self.circ.setBrush(QtGui.QBrush(QtCore.Qt.white))
+            self.scene.addItem(self.circ)
+
+
 
     def onLambdaSliderMoveCallBack(self):
 
