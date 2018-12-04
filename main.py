@@ -15,15 +15,22 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         # Since the UI is a QGraphicsView, I create a Scene
         # so it has something to show
         self.scene = QtWidgets.QGraphicsScene()
+        self.sceneScheme = QtWidgets.QGraphicsScene()
 
         self.scene.setSceneRect(0, 0, 200, 200)
-
+        self.sceneScheme.setSceneRect(0, 0, 500, 312)
 
         self.ui.Franjas_graphicsView.setScene(self.scene)
+        self.ui.Scheme_graphicsView.setScene(self.sceneScheme)
+
+        self.schemaPixmap = QtGui.QPixmap('esquema_idm.png')
+        self.onUpdateColors()
 
         self.secao = numpy.tile([1, 0], 5)
         self.v = 1
         self.ka=[0,0,25,50,75,100,125,150,175]
+
+        self.onUpdateScheme()
 
         for i in range (0,9,1):
             if i==0:
@@ -52,6 +59,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L2_lineEdit.editingFinished.connect(self.onL2LineEditChangeCallBack)
         self.ui.Lambda_lineEdit.editingFinished.connect(self.onLambdaLineEditChangeCallBack)
 
+    def onUpdateColors(self):
+
+        self.r, self.g, self.b, self.a = colourization(int(self.ui.Lambda_horizontalSlider.value()))
+        print(self.r*255, self.g*255, self.b*255, self.a*255)
+        self.colorQT = QtGui.QColor(self.r*255, self.g*255, self.b*255, self.a*255)
+
     def onL1SliderMoveCallBack(self):
 
         self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()))
@@ -72,6 +85,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def onLambdaSliderMoveCallBack(self):
 
         self.ui.Lambda_lineEdit.setText(str(self.ui.Lambda_horizontalSlider.value()))
+        self.onUpdateColors()
+        self.onUpdateScheme()
 
     def onL1LineEditChangeCallBack(self):
 
@@ -116,6 +131,12 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                 self.circ.setBrush(QtGui.QBrush(QtCore.Qt.white))
 
             self.scene.addItem(self.circ)
+
+    def onUpdateScheme(self):
+            self.sceneScheme.clear()
+            self.sceneScheme.addPixmap(self.schemaPixmap)
+
+            self.sceneScheme.addLine(QtCore.QLineF(99, 155, 240, 155), self.colorQT)
 
 
 def main():
