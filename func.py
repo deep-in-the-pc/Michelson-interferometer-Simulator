@@ -1,5 +1,8 @@
-import numpy
+from PyQt5 import QtWidgets, QtGui, QtCore
+from IDM_GUI_QT5 import Ui_MainWindow
+import sys, numpy
 
+from main import *
 
 def desfazamento(l1, l2, n, lambluz):
     x = float(2 * numpy.pi * (l1 - l2) * n / (lambluz * 10 ** -6))
@@ -56,8 +59,8 @@ def circunferencia(wavelength): #cria vector com as circunferencias a delimitar
     return tuple(k)
 
 
-def franj(n,d,lambluz):
-    franjas = n * 2 * (d * 10 ** -6) / (lambluz * 10 ** -6)  # formula do enunciado para nº de franjas
+def franj(n,d1,d2,lambluz):
+    franjas = n * 2 * (numpy.absolute(d1-d2)*(10**-7)) / (lambluz * 10 ** -9)  # formula do enunciado para nº de franjas
 
     return franjas
 
@@ -78,6 +81,7 @@ def desenho(vector, section, i, franjas,lambluz):
     sender=numpy.zeros(6)#vetor para enviar pq o vector[x] agr é um tupple
 
     for x in range(6):  # diminui progressivamente a imagem para representar o movimento
-        sender[x]= vector[x]-(lambluz*(franjas-numpy.floor(franjas))) #o vector[x]tem que ser tupple para
+        sender[x]= vecto-r[x]-(lambluz*(franjas-numpy.floor(franjas))) #o vector[x]tem que ser tupple para
 
     return franjas, sender, i ,section
+
