@@ -30,7 +30,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.v = 1
         self.ka=[0,0,25,50,75,100,125,150,175]
 
-        self.onUpdateScheme()
+        self.onUpdateGraphics()
 
         for i in range (0,9,1):
             if i==0:
@@ -70,7 +70,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()))
 
         self.ui.Franjas_graphicsView.setScene(self.scene)
-
+        self.onUpdateGraphics()
 
 
 
@@ -79,14 +79,14 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()))
         self.loopback(self.ui.L2_horizontalSlider.value())
-
+        self.onUpdateGraphics()
 
 
     def onLambdaSliderMoveCallBack(self):
 
         self.ui.Lambda_lineEdit.setText(str(self.ui.Lambda_horizontalSlider.value()))
         self.onUpdateColors()
-        self.onUpdateScheme()
+        self.onUpdateGraphics()
 
     def onL1LineEditChangeCallBack(self):
 
@@ -136,8 +136,25 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.sceneScheme.clear()
             self.sceneScheme.addPixmap(self.schemaPixmap)
 
-            self.sceneScheme.addLine(QtCore.QLineF(99, 155, 240, 155), self.colorQT)
+            self.mirrorL2 = QtWidgets.QGraphicsRectItem(470+0.1*int(self.ui.L2_horizontalSlider.value()), 131, 5, 70)
+            self.mirrorL2.setBrush(QtGui.QBrush(QtCore.Qt.black))
+            self.mirrorL1 = QtWidgets.QGraphicsRectItem(205,21-0.1*int(self.ui.L1_horizontalSlider.value()), 70, 5)
+            self.mirrorL1.setBrush(QtGui.QBrush(QtCore.Qt.black))
 
+            self.sceneScheme.addLine(QtCore.QLineF(99, 155, 240, 155), self.colorQT) #line from lazer to middle
+            self.sceneScheme.addLine(QtCore.QLineF(250, 166, 250, 236), self.colorQT)  # line from middle to lense L1
+            self.sceneScheme.addLine(QtCore.QLineF(248, 169, 250, 236), self.colorQT)#line from middle to lense L2
+            self.sceneScheme.addLine(QtCore.QLineF(239, 155, 240, 21-0.1*int(self.ui.L1_horizontalSlider.value())), self.colorQT)  # line from middle to L1
+            self.sceneScheme.addLine(QtCore.QLineF(245, 149, 240, 21-0.1*int(self.ui.L1_horizontalSlider.value())), self.colorQT)  # line from L1 to middle
+            self.sceneScheme.addLine(QtCore.QLineF(470+0.1*int(self.ui.L2_horizontalSlider.value()), 166, 258, 160), self.colorQT)  # line from middle to L2
+            self.sceneScheme.addLine(QtCore.QLineF(470+0.1*int(self.ui.L2_horizontalSlider.value()), 166, 250, 167), self.colorQT)  # line from L2 to middle
+            self.sceneScheme.addLine(QtCore.QLineF(250, 250, 250, 299), self.colorQT) #lense to observer
+            self.sceneScheme.addItem(self.mirrorL1)# Espelho L1
+            self.sceneScheme.addItem(self.mirrorL2) #Espelho L2
+
+    def onUpdateGraphics(self):
+
+        self.onUpdateScheme()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
