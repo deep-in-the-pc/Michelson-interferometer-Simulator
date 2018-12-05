@@ -134,6 +134,17 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.frame, 6, 0, 1, 4)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem4, 0, 3, 1, 1)
+        self.titleLabel = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(32)
+        self.titleLabel.setFont(font)
+        self.titleLabel.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.titleLabel.setTextFormat(QtCore.Qt.RichText)
+        self.titleLabel.setScaledContents(False)
+        self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.titleLabel.setWordWrap(True)
+        self.titleLabel.setObjectName("titleLabel")
+        self.gridLayout.addWidget(self.titleLabel, 0, 0, 1, 2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -161,6 +172,7 @@ class Ui_MainWindow(object):
         self.IR_label.setText(_translate("MainWindow", "Índice de refração"))
         self.IR_lineEdit.setInputMask(_translate("MainWindow", "0D.00"))
         self.IR_lineEdit.setText(_translate("MainWindow", "1.0"))
+        self.titleLabel.setText(_translate("MainWindow", "Interferômetro de Michelson"))
 
 
 if __name__ == "__main__":
