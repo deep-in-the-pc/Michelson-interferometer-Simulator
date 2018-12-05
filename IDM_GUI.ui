@@ -32,7 +32,7 @@
      </spacer>
     </item>
     <item row="2" column="1" rowspan="2">
-     <widget class="QGraphicsView" name="Wave_graphicsView">
+     <widget class="PlotWidget" name="Wave_graphicsView">
       <property name="sizePolicy">
        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
         <horstretch>0</horstretch>
@@ -414,6 +414,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

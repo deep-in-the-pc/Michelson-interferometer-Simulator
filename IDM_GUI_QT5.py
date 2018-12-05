@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 6, 5, 1, 1)
-        self.Wave_graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.Wave_graphicsView = PlotWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -174,6 +174,7 @@ class Ui_MainWindow(object):
         self.IR_lineEdit.setText(_translate("MainWindow", "1.0"))
         self.titleLabel.setText(_translate("MainWindow", "Interferômetro de Michelson"))
 
+from pyqtgraph import PlotWidget
 
 if __name__ == "__main__":
     import sys

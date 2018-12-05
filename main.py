@@ -1,6 +1,6 @@
 import numpy
 from func import *
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtWidgets, QtGui, QtCore,
 from IDM_GUI_QT5 import Ui_MainWindow
 import sys, numpy
 import ctypes
