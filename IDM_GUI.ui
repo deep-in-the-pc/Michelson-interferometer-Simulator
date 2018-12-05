@@ -51,6 +51,12 @@
         <height>133</height>
        </size>
       </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
      </widget>
     </item>
     <item row="1" column="1">
@@ -98,6 +104,12 @@
         <width>500</width>
         <height>312</height>
        </size>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
      </widget>
     </item>
@@ -152,6 +164,12 @@
         <height>0</height>
        </size>
       </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
      </widget>
     </item>
     <item row="6" column="0" colspan="4">
@@ -178,10 +196,13 @@
        <item row="0" column="1">
         <widget class="QSlider" name="L1_horizontalSlider">
          <property name="minimum">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="maximum">
-          <number>1000</number>
+          <number>150</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
          </property>
          <property name="pageStep">
           <number>1</number>
@@ -210,10 +231,10 @@
           </size>
          </property>
          <property name="inputMask">
-          <string>D000 mm</string>
+          <string>D000 μm</string>
          </property>
          <property name="text">
-          <string>1 mm</string>
+          <string>1 μm</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -223,10 +244,10 @@
        <item row="2" column="1">
         <widget class="QSlider" name="L2_horizontalSlider">
          <property name="minimum">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="maximum">
-          <number>1000</number>
+          <number>150</number>
          </property>
          <property name="pageStep">
           <number>1</number>
@@ -252,10 +273,10 @@
           </size>
          </property>
          <property name="inputMask">
-          <string>D000 mm</string>
+          <string>D000 μm</string>
          </property>
          <property name="text">
-          <string>1 mm</string>
+          <string>1 μm</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
