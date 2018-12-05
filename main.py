@@ -12,6 +12,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
         # Since the UI is a QGraphicsView, I create a Scene
         # so it has something to show
         self.sceneFranjas = QtWidgets.QGraphicsScene()
@@ -35,22 +36,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.lamb = self.ui.Lambda_horizontalSlider.value()
         self.fran=franj(1,self.line1,self.line2,self.lamb)
 
-        print("xx",self.lamb,self.line1,self.fran)
+        #print("xx",self.lamb,self.line1,self.fran)
 
+        self.onUpdateColors()
         self.onUpdateGraphics()
-
-        for i in range (0,9,1):
-            if i==0:
-                self.circ = QtWidgets.QGraphicsEllipseItem(0,0,200,200)
-            else:
-                self.circ = QtWidgets.QGraphicsEllipseItem((self.ka[i]/2)+(0/10),(self.ka[i]/2)+(0/10),200-self.ka[i]-(0/5),200-self.ka[i]-(0/5))  # (pos x,pos y,largura,altura)
-            if int(self.secao[i]) == 0:
-
-                self.circ.setBrush(QtGui.QBrush(QtCore.Qt.red))
-            else:
-                self.circ.setBrush(QtGui.QBrush(QtCore.Qt.white))
-
-            self.sceneFranjas.addItem(self.circ)
 
 
         ###INTERFACE CALLBACKS
@@ -77,9 +66,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()))
         self.line1=self.ui.L1_horizontalSlider.value()
         self.fran = franj(1,self.line1, self.line2, self.lamb)
-        print(self.fran)
-        self.onUpdateFranjas()
-
+        #print(self.fran)
         self.onUpdateGraphics()
 
 
@@ -90,7 +77,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()))
         self.line2=self.ui.L2_horizontalSlider.value()
         self.fran = franj(1,self.line1, self.line2, self.lamb)
-        self.onUpdateFranjas()
+
         self.onUpdateGraphics()
 
 
@@ -99,7 +86,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.Lambda_lineEdit.setText(str(self.ui.Lambda_horizontalSlider.value()))
         self.lamb=self.ui.Lambda_horizontalSlider.value()
         self.fran = franj(1,self.line1, self.line2, self.lamb)
-        self.onUpdateFranjas()
         self.onUpdateColors()
         self.onUpdateGraphics()
 
@@ -109,20 +95,20 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.line1 =int(self.ui.L1_lineEdit.text()[:-3])
         self.fran = franj(1, self.line1, self.line2, self.lamb)
         print(self.fran)
-        self.onUpdateFranjas()
+        self.onUpdateGraphics()
 
     def onL2LineEditChangeCallBack(self):
 
         self.ui.L2_horizontalSlider.setValue(int(self.ui.L2_lineEdit.text()[:-3]))
         self.line2=int(self.ui.L2_lineEdit.text()[:-3])
         self.fran = franj(1,self.line1, self.line2, self.lamb)
-        self.onUpdateFranjas()
+        self.onUpdateGraphics()
 
     def onLambdaLineEditChangeCallBack(self):
         self.ui.Lambda_horizontalSlider.setValue(int(self.ui.Lambda_lineEdit.text()[:-3]))
         self.lamb=int(self.ui.Lambda_lineEdit.text()[:-3])
         self.fran = franj(1,self.line1, self.line2, self.lamb)
-        self.onUpdateFranjas()
+        self.onUpdateGraphics()
 
     def onUpdateFranjas(self):
 
@@ -177,6 +163,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def onUpdateGraphics(self):
 
         self.onUpdateScheme()
+        self.onUpdateFranjas()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
