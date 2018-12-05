@@ -148,7 +148,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Simulador do Interferômetro de Michelson"))
         self.L1_label.setText(_translate("MainWindow", "             L1"))
         self.L1_lineEdit.setInputMask(_translate("MainWindow", "D000 μm"))
         self.L1_lineEdit.setText(_translate("MainWindow", "1 μm"))

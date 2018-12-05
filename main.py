@@ -3,8 +3,11 @@ from func import *
 from PyQt5 import QtWidgets, QtGui, QtCore
 from IDM_GUI_QT5 import Ui_MainWindow
 import sys, numpy
+import ctypes
+#show icon on windows task bar
 
-
+myappid = 'interferometrodemichelson' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 class ApplicationWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -12,7 +15,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
         # Since the UI is a QGraphicsView, I create a Scene
         # so it has something to show
         self.sceneFranjas = QtWidgets.QGraphicsScene()
@@ -24,7 +26,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.Franjas_graphicsView.setScene(self.sceneFranjas)
         self.ui.Scheme_graphicsView.setScene(self.sceneScheme)
 
-        self.schemaPixmap = QtGui.QPixmap('esquema_idm.png')
+        self.schemaPixmap = QtGui.QPixmap('gui\scheme\esquema_idm.png')
         self.onUpdateColors()
 
         self.secao = numpy.tile([1, 0], 5)
@@ -58,7 +60,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def onUpdateColors(self):
 
         self.r, self.g, self.b, self.a = colourization(int(self.ui.Lambda_horizontalSlider.value()))
-        print(self.r*255, self.g*255, self.b*255, self.a*255)
+        #print(self.r*255, self.g*255, self.b*255, self.a*255)
         self.colorQT = QtGui.QColor(self.r*255, self.g*255, self.b*255, self.a*255)
 
     def onL1SliderMoveCallBack(self):
@@ -94,7 +96,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L1_horizontalSlider.setValue(int(self.ui.L1_lineEdit.text()[:-3]))
         self.line1 =int(self.ui.L1_lineEdit.text()[:-3])
         self.fran = franj(1, self.line1, self.line2, self.lamb)
-        print(self.fran)
+        #print(self.fran)
         self.onUpdateGraphics()
 
     def onL2LineEditChangeCallBack(self):
@@ -122,7 +124,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.secao = numpy.roll(self.secao, -1)
             self.v = numpy.floor(self.fran)
 
-        print(self.fran, self.secao, self.secao[0])
+        #print(self.fran, self.secao, self.secao[0])
 
         for i in range(0, 9, 1):
             if i == 0: #define o limite exterior das circunferencias
@@ -165,9 +167,17 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.onUpdateScheme()
         self.onUpdateFranjas()
 
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
     application = ApplicationWindow()
+    app_icon = QtGui.QIcon()
+    app_icon.addFile('gui/icons/icon_IDM_16x16.png', QtCore.QSize(16, 16))
+    app_icon.addFile('gui/icons/icon_IDM_24x24.png', QtCore.QSize(24, 24))
+    app_icon.addFile('gui/icons/icon_IDM_32x32.png', QtCore.QSize(32, 32))
+    app_icon.addFile('gui/icons/icon_IDM_48x48.png', QtCore.QSize(48, 48))
+    app_icon.addFile('gui/icons/icon_IDM_256x256.png', QtCore.QSize(256, 256))
+    application.setWindowIcon(app_icon)
     application.show()
     sys.exit(app.exec_())
 
