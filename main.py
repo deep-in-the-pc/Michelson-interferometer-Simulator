@@ -38,12 +38,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.v = 1
         self.ka=[0,0,25,50,75,100,125,150,175]
 
-        self.line1 = self.ui.L1_horizontalSlider.value()
-        self.line2 = self.ui.L2_horizontalSlider.value()
-        self.lamb = self.ui.Lambda_horizontalSlider.value()
-        self.refracao = float(self.ui.IR_lineEdit.text())
-        self.freq = LengthToFreq(int(self.ui.Lambda_horizontalSlider.value()))
-        self.fran=franj(1,self.line1,self.line2,self.lamb)
+        self.onUpdateVars()
 
         #print("xx",self.lamb,self.line1,self.fran)
 
@@ -78,20 +73,19 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def onL1SliderMoveCallBack(self):
 
-        self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()))
-        self.line1=self.ui.L1_horizontalSlider.value()
-        self.fran = franj(1,self.line1, self.line2, self.lamb)
-        #print(self.fran)
+        self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()*0.01))
+
+        self.onUpdateVars()
+
         self.onUpdateGraphics()
 
 
 
     def onL2SliderMoveCallBack(self):
 
+        self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()*0.01))
 
-        self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()))
-        self.line2=self.ui.L2_horizontalSlider.value()
-        self.fran = franj(1,self.line1, self.line2, self.lamb)
+        self.onUpdateVars()
 
         self.onUpdateGraphics()
 
@@ -99,33 +93,37 @@ class ApplicationWindow(QtWidgets.QMainWindow):
     def onLambdaSliderMoveCallBack(self):
 
         self.ui.Lambda_lineEdit.setText(str(self.ui.Lambda_horizontalSlider.value()))
-        self.lamb=self.ui.Lambda_horizontalSlider.value()
-        self.fran = franj(1,self.line1, self.line2, self.lamb)
+
+        self.onUpdateVars()
+
         self.onUpdateColors()
         self.onUpdateGraphics()
 
     def onL1LineEditChangeCallBack(self):
 
-        self.ui.L1_horizontalSlider.setValue(int(self.ui.L1_lineEdit.text()[:-3]))
-        self.line1 =int(self.ui.L1_lineEdit.text()[:-3])
-        self.fran = franj(1, self.line1, self.line2, self.lamb)
-        #print(self.fran)
+        self.ui.L1_horizontalSlider.setValue(float(self.ui.L1_lineEdit.text()[:-3])*100)
+
+        self.onUpdateVars()
+
         self.onUpdateGraphics()
 
     def onL2LineEditChangeCallBack(self):
-
-        self.ui.L2_horizontalSlider.setValue(int(self.ui.L2_lineEdit.text()[:-3]))
-        self.line2=int(self.ui.L2_lineEdit.text()[:-3])
-        self.fran = franj(1,self.line1, self.line2, self.lamb)
+        self.onUpdateVars()
+        self.ui.L2_horizontalSlider.setValue(float(self.ui.L2_lineEdit.text()[:-3])*100)
+        self.line2=float(self.ui.L2_lineEdit.text()[:-3])*100
+        self.fran = franj(self.ir,self.line1, self.line2, self.lamb)
         self.onUpdateGraphics()
 
     def onLambdaLineEditChangeCallBack(self):
+
         self.ui.Lambda_horizontalSlider.setValue(int(self.ui.Lambda_lineEdit.text()[:-3]))
-        self.lamb=int(self.ui.Lambda_lineEdit.text()[:-3])
-        self.fran = franj(1,self.line1, self.line2, self.lamb)
+
+        self.onUpdateVars()
+
         self.onUpdateGraphics()
 
     def onIRLineEditChangeCallBack(self):
+        self.onUpdateVars()
         self.onUpdateGraphics()
 
     def onUpdateFranjas(self):
@@ -162,18 +160,20 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.sceneScheme.clear()
             self.sceneScheme.addPixmap(self.schemaPixmap)
 
-            self.mirrorL2 = QtWidgets.QGraphicsRectItem(470+0.1*int(self.ui.L2_horizontalSlider.value()), 131, 5, 70)
+            self.onUpdateVars()
+
+            self.mirrorL2 = QtWidgets.QGraphicsRectItem(470+0.1*self.line2, 131, 5, 70)
             self.mirrorL2.setBrush(QtGui.QBrush(QtCore.Qt.black))
-            self.mirrorL1 = QtWidgets.QGraphicsRectItem(205,21-0.1*int(self.ui.L1_horizontalSlider.value()), 70, 5)
+            self.mirrorL1 = QtWidgets.QGraphicsRectItem(205,21-0.1*self.line1, 70, 5)
             self.mirrorL1.setBrush(QtGui.QBrush(QtCore.Qt.black))
 
             self.sceneScheme.addLine(QtCore.QLineF(99, 155, 240, 155), self.colorQT) #line from lazer to middle
             self.sceneScheme.addLine(QtCore.QLineF(250, 166, 250, 236), self.colorQT)  # line from middle to lense L1
             self.sceneScheme.addLine(QtCore.QLineF(248, 169, 250, 236), self.colorQT)#line from middle to lense L2
-            self.sceneScheme.addLine(QtCore.QLineF(239, 155, 240, 21-0.1*int(self.ui.L1_horizontalSlider.value())), self.colorQT)  # line from middle to L1
-            self.sceneScheme.addLine(QtCore.QLineF(245, 149, 240, 21-0.1*int(self.ui.L1_horizontalSlider.value())), self.colorQT)  # line from L1 to middle
-            self.sceneScheme.addLine(QtCore.QLineF(470+0.1*int(self.ui.L2_horizontalSlider.value()), 166, 258, 160), self.colorQT)  # line from middle to L2
-            self.sceneScheme.addLine(QtCore.QLineF(470+0.1*int(self.ui.L2_horizontalSlider.value()), 166, 250, 167), self.colorQT)  # line from L2 to middle
+            self.sceneScheme.addLine(QtCore.QLineF(239, 155, 240, 21-0.1*self.line1), self.colorQT)  # line from middle to L1
+            self.sceneScheme.addLine(QtCore.QLineF(245, 149, 240, 21-0.1*self.line1), self.colorQT)  # line from L1 to middle
+            self.sceneScheme.addLine(QtCore.QLineF(470+0.1*self.line2, 166, 258, 160), self.colorQT)  # line from middle to L2
+            self.sceneScheme.addLine(QtCore.QLineF(470+0.1*self.line2, 166, 250, 167), self.colorQT)  # line from L2 to middle
             self.sceneScheme.addLine(QtCore.QLineF(250, 250, 250, 299), self.colorQT) #lense to observer
             self.sceneScheme.addItem(self.mirrorL1)# Espelho L1
             self.sceneScheme.addItem(self.mirrorL2) #Espelho L2
@@ -182,11 +182,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         if not self.firstRun:
             self.ui.Wave_graphicsView.removeItem(self.Wave1)
             self.ui.Wave_graphicsView.removeItem(self.Wave2)
-        self.line1 = self.ui.L1_horizontalSlider.value()
-        self.line2 = self.ui.L2_horizontalSlider.value()
-        self.lamb = self.ui.Lambda_horizontalSlider.value()
-        self.refracao = float(self.ui.IR_lineEdit.text())
-        self.freq = LengthToFreq(int(self.ui.Lambda_horizontalSlider.value()))
 
         x = np.linspace(0, 100/(self.freq), 10001)
         y1 = np.sin(x * self.freq)
@@ -207,6 +202,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.onUpdateScheme()
         self.onUpdateFranjas()
         self.onUpdateWave()
+
+
+    def onUpdateVars(self):
+        self.line1 = self.ui.L1_horizontalSlider.value()*0.01
+        self.line2 = self.ui.L2_horizontalSlider.value()*0.01
+        self.lamb = self.ui.Lambda_horizontalSlider.value()
+        self.refracao = float(self.ui.IR_lineEdit.text())
+        self.freq = LengthToFreq(int(self.ui.Lambda_horizontalSlider.value()))
+        self.ir = float(self.ui.IR_lineEdit.text())
+        self.fran=franj(self.ir,self.line1,self.line2,self.lamb)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
