@@ -62,7 +62,7 @@ def circunferencia(wavelength): #cria vector com as circunferencias a delimitar
 
 
 def franj(n,d1,d2,lambluz):
-    franjas = n * 2 * (np.absolute(d1-d2)*(10**-7)) / (lambluz * 10 ** -9)  # formula do enunciado para nº de franjas
+    franjas = 2 * (np.absolute((d1+1)-(d2+1)*n)*(10**-6)) / (lambluz * 10 ** -9)  # formula do enunciado para nº de franjas
 
     return franjas
 
