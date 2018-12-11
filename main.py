@@ -1,3 +1,11 @@
+import ctypes
+import sys
+
+import numpy as np
+import pyqtgraph
+from PyQt5 import QtWidgets, QtGui, QtCore
+
+from IDM_GUI_QT5 import Ui_MainWindow
 from func import *
 
 #show icon on windows task bar
