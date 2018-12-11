@@ -1,3 +1,12 @@
+
+import ctypes
+import sys
+
+import numpy as np
+import pyqtgraph
+from PyQt5 import QtWidgets, QtGui, QtCore
+
+from IDM_GUI_QT5 import Ui_MainWindow
 from func import *
 
 #show icon on windows task bar
@@ -122,13 +131,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.sceneFranjas.clear()
 
-        if numpy.floor(self.fran) >= self.v:
-            self.secao = numpy.roll(self.secao, int(numpy.floor(self.fran)- self.v))  # caso sim ele da switch de cor branco pa preto
-            self.v = numpy.floor(self.fran)
+        if np.floor(self.fran) >= self.v:
+            self.secao = np.roll(self.secao, int(np.floor(self.fran)- self.v))  # caso sim ele da switch de cor branco pa preto
+            self.v = np.floor(self.fran)
 
-        if numpy.floor(self.fran) < self.v:  # verifica se o numero de franjas diminuiu
-            self.secao = numpy.roll(self.secao, -1)
-            self.v = numpy.floor(self.fran)
+        if np.floor(self.fran) < self.v:  # verifica se o numero de franjas diminuiu
+            self.secao = np.roll(self.secao, -1)
+            self.v = np.floor(self.fran)
 
         #print(self.fran, self.secao, self.secao[0])
 
@@ -136,9 +145,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             if i == 0: #define o limite exterior das circunferencias
                 self.circ = QtWidgets.QGraphicsEllipseItem(0, 0, 200, 200)
             else:
-                self.circ = QtWidgets.QGraphicsEllipseItem((self.ka[i]/2) + (12.5*(self.fran-numpy.floor(self.fran))), (self.ka[i]/2) + (12.5*(self.fran-numpy.floor(self.fran))),
-                                                           200 - self.ka[i] - (25*(self.fran-numpy.floor(self.fran))),
-                                                           200 - self.ka[i] - (25*(self.fran-numpy.floor(self.fran)))) # (pos x,pos y,largura,altura)
+                self.circ = QtWidgets.QGraphicsEllipseItem((self.ka[i]/2) + (12.5*(self.fran-np.floor(self.fran))), (self.ka[i]/2) + (12.5*(self.fran-np.floor(self.fran))),
+                                                           200 - self.ka[i] - (25*(self.fran-np.floor(self.fran))),
+                                                           200 - self.ka[i] - (25*(self.fran-np.floor(self.fran)))) # (pos x,pos y,largura,altura)
             if int(self.secao[i]) == 0: #como secao da rotate permite alteracao de cores
                 #print(colourization(self.ui.Lambda_horizontalSlider.value())) retorna os valores de rgb
                 self.circ.setBrush(QtGui.QBrush(self.colorQT))
@@ -181,8 +190,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         x = np.linspace(0, 100/(self.freq), 10001)
         y1 = np.sin(x * self.freq)
         y2 = np.sin(x*self.freq + desfazamento(self.line1, self.line2, self.refracao, self.lamb))
-        print(self.refracao)
-        print(desfazamento(self.line1, self.line2, self.refracao, self.lamb))
+
         self.Wave1 = pyqtgraph.PlotDataItem(x, y1, pen=self.colorQT, symbol=None)
         self.Wave2 = pyqtgraph.PlotDataItem(x, y2, pen=self.colorQT, symbol=None)
 
