@@ -1,11 +1,3 @@
-import ctypes
-import sys
-
-import numpy as np
-import pyqtgraph
-from PyQt5 import QtWidgets, QtGui, QtCore
-
-from IDM_GUI_QT5 import Ui_MainWindow
 from func import *
 
 #show icon on windows task bar
@@ -64,7 +56,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L2_lineEdit.editingFinished.connect(self.onL2LineEditChangeCallBack)
         self.ui.Lambda_lineEdit.editingFinished.connect(self.onLambdaLineEditChangeCallBack)
         self.ui.IR_lineEdit.editingFinished.connect(self.onIRLineEditChangeCallBack)
-
+        self.ui.IR_lineEdit.returnPressed.connect(self.onIRLineEditChangeCallBack)
         self.firstRun = False
 
 
@@ -189,7 +181,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         x = np.linspace(0, 100/(self.freq), 10001)
         y1 = np.sin(x * self.freq)
         y2 = np.sin(x*self.freq + desfazamento(self.line1, self.line2, self.refracao, self.lamb))
-
+        print(self.refracao)
+        print(desfazamento(self.line1, self.line2, self.refracao, self.lamb))
         self.Wave1 = pyqtgraph.PlotDataItem(x, y1, pen=self.colorQT, symbol=None)
         self.Wave2 = pyqtgraph.PlotDataItem(x, y2, pen=self.colorQT, symbol=None)
 
