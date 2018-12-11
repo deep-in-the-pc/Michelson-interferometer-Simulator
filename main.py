@@ -1,9 +1,14 @@
-import numpy
 from func import *
-from PyQt5 import QtWidgets, QtGui, QtCore
-from IDM_GUI_QT5 import Ui_MainWindow
-import sys, numpy
 import ctypes
+import sys
+
+import numpy as np
+import pyqtgraph
+from PyQt5 import QtWidgets, QtGui, QtCore
+
+from IDM_GUI_QT5 import Ui_MainWindow
+from func import *
+
 #show icon on windows task bar
 
 myappid = 'interferometrodemichelson' # arbitrary string
@@ -17,6 +22,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         # Since the UI is a QGraphicsView, I create a Scene
         # so it has something to show
+        self.firstRun = True
         self.sceneFranjas = QtWidgets.QGraphicsScene()
         self.sceneScheme = QtWidgets.QGraphicsScene()
 
@@ -36,6 +42,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.line1 = self.ui.L1_horizontalSlider.value()
         self.line2 = self.ui.L2_horizontalSlider.value()
         self.lamb = self.ui.Lambda_horizontalSlider.value()
+        self.refracao = float(self.ui.IR_lineEdit.text())
+        self.freq = LengthToFreq(int(self.ui.Lambda_horizontalSlider.value()))
         self.fran=franj(1,self.line1,self.line2,self.lamb)
 
         #print("xx",self.lamb,self.line1,self.fran)
@@ -56,6 +64,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L1_lineEdit.editingFinished.connect(self.onL1LineEditChangeCallBack)
         self.ui.L2_lineEdit.editingFinished.connect(self.onL2LineEditChangeCallBack)
         self.ui.Lambda_lineEdit.editingFinished.connect(self.onLambdaLineEditChangeCallBack)
+        self.ui.IR_lineEdit.editingFinished.connect(self.onIRLineEditChangeCallBack)
+
+        self.firstRun = False
+
 
     def onUpdateColors(self):
 
@@ -112,6 +124,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.fran = franj(1,self.line1, self.line2, self.lamb)
         self.onUpdateGraphics()
 
+    def onIRLineEditChangeCallBack(self):
+        self.onUpdateGraphics()
+
     def onUpdateFranjas(self):
 
         self.sceneFranjas.clear()
@@ -162,11 +177,35 @@ class ApplicationWindow(QtWidgets.QMainWindow):
             self.sceneScheme.addItem(self.mirrorL1)# Espelho L1
             self.sceneScheme.addItem(self.mirrorL2) #Espelho L2
 
+    def onUpdateWave(self):
+        if not self.firstRun:
+            self.ui.Wave_graphicsView.removeItem(self.Wave1)
+            self.ui.Wave_graphicsView.removeItem(self.Wave2)
+        self.line1 = self.ui.L1_horizontalSlider.value()
+        self.line2 = self.ui.L2_horizontalSlider.value()
+        self.lamb = self.ui.Lambda_horizontalSlider.value()
+        self.refracao = float(self.ui.IR_lineEdit.text())
+        self.freq = LengthToFreq(int(self.ui.Lambda_horizontalSlider.value()))
+
+        x = np.linspace(0, 100/(self.freq), 10001)
+        y1 = np.sin(x * self.freq)
+        y2 = np.sin(x*self.freq + desfazamento(self.line1, self.line2, self.refracao, self.lamb))
+
+        self.Wave1 = pyqtgraph.PlotDataItem(x, y1, pen=self.colorQT, symbol=None)
+        self.Wave2 = pyqtgraph.PlotDataItem(x, y2, pen=self.colorQT, symbol=None)
+
+
+
+
+        self.ui.Wave_graphicsView.addItem(self.Wave1, labels={'left': '', 'bottom': 'Desfasamento'})  ## setting pen=None disables line drawing
+        self.ui.Wave_graphicsView.addItem(self.Wave2)  ## setting pen=None disables line drawing
+
+
     def onUpdateGraphics(self):
 
         self.onUpdateScheme()
         self.onUpdateFranjas()
-
+        self.onUpdateWave()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
