@@ -1,12 +1,3 @@
-
-import ctypes
-import sys
-
-import numpy as np
-import pyqtgraph
-from PyQt5 import QtWidgets, QtGui, QtCore
-
-from IDM_GUI_QT5 import Ui_MainWindow
 from func import *
 
 #show icon on windows task bar
@@ -66,6 +57,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.Lambda_lineEdit.editingFinished.connect(self.onLambdaLineEditChangeCallBack)
         self.ui.IR_lineEdit.editingFinished.connect(self.onIRLineEditChangeCallBack)
         self.ui.IR_lineEdit.returnPressed.connect(self.onIRLineEditChangeCallBack)
+        self.ui.IR_lineEdit.textEdited.connect(self.onIRLineEditChangeCallBack)
+
         self.firstRun = False
 
 
