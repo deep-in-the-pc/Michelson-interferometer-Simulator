@@ -2,7 +2,7 @@ from main import *
 
 
 def desfazamento(l1, l2, n, lambluz):
-    x = float((2 * np.pi * ((1+l1) - (1+l2)*n) / (lambluz * 10 ** -6)))
+    x = float((2 * np.pi * (((1+l1)- (1+l2)*n)*10**-6) / (lambluz * 10 ** -9)))
     return x%(2*np.pi)
 
 def LengthToFreq(lambluz):
