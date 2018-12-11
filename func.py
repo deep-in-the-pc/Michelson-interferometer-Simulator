@@ -1,7 +1,10 @@
+import numpy
+
 from main import *
 
+
 def desfazamento(l1, l2, n, lambluz):
-    x = float(2 * numpy.pi * (l1 - l2) * n / (lambluz * 10 ** -6))
+    x = float(2 * np.pi * (l1 - l2) * n / (lambluz * 10 ** -6))
     return x
 
 def LengthToFreq(lambluz):
@@ -53,7 +56,7 @@ def colourization(Wavelength):
     return Red, Green, Blue, factor
 
 def circunferencia(wavelength): #cria vector com as circunferencias a delimitar
-    k=numpy.zeros(6)
+    k=np.zeros(6)
     for x in range(6):
         k[x]+=wavelength*(x+1)
 
@@ -61,7 +64,7 @@ def circunferencia(wavelength): #cria vector com as circunferencias a delimitar
 
 
 def franj(n,d1,d2,lambluz):
-    franjas = n * 2 * (numpy.absolute(d1-d2)*(10**-7)) / (lambluz * 10 ** -9)  # formula do enunciado para nº de franjas
+    franjas = n * 2 * (np.absolute(d1-d2)*(10**-7)) / (lambluz * 10 ** -9)  # formula do enunciado para nº de franjas
 
     return franjas
 
@@ -69,8 +72,8 @@ def desenho(vector, section, i, franjas,lambluz):
     #section = numpy.tile([1, 0], 12) # vetor para identificar cor
 
     #movimento do valor de franjas (neste caso de o d desce ou sobe)
-    if numpy.floor(franjas)>i : # verifica se o numero de franjas aumentou
-        section=numpy.roll(section,int(numpy.floor(franjas)-i))         #caso sim ele da switch de cor branco pa preto
+    if np.floor(franjas)>i : # verifica se o numero de franjas aumentou
+        section=numpy.roll(section,int(np.floor(franjas)-i))         #caso sim ele da switch de cor branco pa preto
         i=numpy.floor(franjas)
 
     if numpy.floor(franjas)<i : # verifica se o numero de franjas diminuiu

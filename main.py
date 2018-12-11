@@ -1,4 +1,3 @@
-from func import *
 import ctypes
 import sys
 
@@ -35,7 +34,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.schemaPixmap = QtGui.QPixmap('gui\scheme\esquema_idm.png')
         self.onUpdateColors()
 
-        self.secao = numpy.tile([1, 0], 5)
+        self.secao = np.tile([1, 0], 5)
         self.v = 1
         self.ka=[0,0,25,50,75,100,125,150,175]
 
