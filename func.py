@@ -1,12 +1,13 @@
-from PyQt5 import QtWidgets, QtGui, QtCore
-from IDM_GUI_QT5 import Ui_MainWindow
-import sys, numpy
-
 from main import *
 
 def desfazamento(l1, l2, n, lambluz):
     x = float(2 * numpy.pi * (l1 - l2) * n / (lambluz * 10 ** -6))
     return x
+
+def LengthToFreq(lambluz):
+    C = 299792458
+    return C/(lambluz*(10**-9))
+
 
 def colourization(Wavelength):
 
