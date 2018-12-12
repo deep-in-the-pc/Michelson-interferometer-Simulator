@@ -107,10 +107,6 @@ class Ui_MainWindow(object):
         self.Lambda_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.Lambda_lineEdit.setObjectName("Lambda_lineEdit")
         self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.Lambda_lineEdit)
-        self.IR_label = QtWidgets.QLabel(self.frame)
-        self.IR_label.setWordWrap(False)
-        self.IR_label.setObjectName("IR_label")
-        self.formLayout.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.IR_label)
         self.IR_doubleSpinBox = QtWidgets.QDoubleSpinBox(self.frame)
         self.IR_doubleSpinBox.setMaximumSize(QtCore.QSize(64, 16777215))
         self.IR_doubleSpinBox.setAlignment(QtCore.Qt.AlignCenter)
@@ -119,6 +115,11 @@ class Ui_MainWindow(object):
         self.IR_doubleSpinBox.setProperty("value", 1.0)
         self.IR_doubleSpinBox.setObjectName("IR_doubleSpinBox")
         self.formLayout.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.IR_doubleSpinBox)
+        self.IR_label = QtWidgets.QLabel(self.frame)
+        self.IR_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.IR_label.setWordWrap(False)
+        self.IR_label.setObjectName("IR_label")
+        self.formLayout.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.IR_label)
         self.gridLayout.addWidget(self.frame, 6, 0, 1, 4)
         self.titleLabel = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
@@ -172,7 +173,8 @@ class Ui_MainWindow(object):
         self.Lambda_label.setText(_translate("MainWindow", "             λ"))
         self.Lambda_lineEdit.setInputMask(_translate("MainWindow", "D99 \\nm"))
         self.Lambda_lineEdit.setText(_translate("MainWindow", "380 nm"))
-        self.IR_label.setText(_translate("MainWindow", "Índice de refração"))
+        self.IR_label.setText(_translate("MainWindow", "Índice de refração\n"
+"do meio 2"))
         self.titleLabel.setText(_translate("MainWindow", "Interferômetro de Michelson"))
 
 from pyqtgraph import PlotWidget

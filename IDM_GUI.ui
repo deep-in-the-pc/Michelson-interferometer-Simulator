@@ -285,16 +285,6 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="IR_label">
-         <property name="text">
-          <string>Índice de refração</string>
-         </property>
-         <property name="wordWrap">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
        <item row="7" column="1">
         <widget class="QDoubleSpinBox" name="IR_doubleSpinBox">
          <property name="maximumSize">
@@ -314,6 +304,20 @@
          </property>
          <property name="value">
           <double>1.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="IR_label">
+         <property name="text">
+          <string>Índice de refração
+do meio 2</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
