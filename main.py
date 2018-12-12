@@ -58,7 +58,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L1_lineEdit.editingFinished.connect(self.onL1LineEditChangeCallBack)
         self.ui.L2_lineEdit.editingFinished.connect(self.onL2LineEditChangeCallBack)
         self.ui.Lambda_lineEdit.editingFinished.connect(self.onLambdaLineEditChangeCallBack)
-
+        self.ui.L1_lineEdit.setText("  " + str(self.ui.L1_horizontalSlider.value() * 0.01))
+        self.ui.L2_lineEdit.setText("  " + str(self.ui.L2_horizontalSlider.value() * 0.01))
         #Spin Box
         self.ui.IR_doubleSpinBox.valueChanged.connect(self.onIRSpinBoxChangeCallBack)
 
@@ -73,9 +74,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.colorQT = QtGui.QColor(self.r*255, self.g*255, self.b*255, self.a*255)
 
     def onL1SliderMoveCallBack(self):
+        if(self.ui.L1_horizontalSlider.value()<1000):
 
-        self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value()*0.01))
-
+            self.ui.L1_lineEdit.setText("  "+str(self.ui.L1_horizontalSlider.value()*0.01))
+        elif (self.ui.L1_horizontalSlider.value() < 10000):
+            self.ui.L1_lineEdit.setText(" " + str(self.ui.L1_horizontalSlider.value() * 0.01))
+        else:
+            self.ui.L1_lineEdit.setText(str(self.ui.L1_horizontalSlider.value() * 0.01))
         self.onUpdateVars()
 
         self.onUpdateGraphics()
@@ -84,7 +89,15 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
     def onL2SliderMoveCallBack(self):
 
-        self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()*0.01))
+        if(self.ui.L2_horizontalSlider.value()<1000):
+
+            self.ui.L2_lineEdit.setText("  "+str(self.ui.L2_horizontalSlider.value()*0.01))
+
+        elif (self.ui.L2_horizontalSlider.value() < 10000):
+
+            self.ui.L2_lineEdit.setText(" " + str(self.ui.L2_horizontalSlider.value() * 0.01))
+        else:
+            self.ui.L2_lineEdit.setText(str(self.ui.L2_horizontalSlider.value()*0.01))
 
         self.onUpdateVars()
 
