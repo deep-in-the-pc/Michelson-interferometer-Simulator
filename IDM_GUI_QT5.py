@@ -114,6 +114,7 @@ class Ui_MainWindow(object):
         self.IR_doubleSpinBox = QtWidgets.QDoubleSpinBox(self.frame)
         self.IR_doubleSpinBox.setMaximumSize(QtCore.QSize(64, 16777215))
         self.IR_doubleSpinBox.setAlignment(QtCore.Qt.AlignCenter)
+        self.IR_doubleSpinBox.setMinimum(1.0)
         self.IR_doubleSpinBox.setSingleStep(0.01)
         self.IR_doubleSpinBox.setProperty("value", 1.0)
         self.IR_doubleSpinBox.setObjectName("IR_doubleSpinBox")
