@@ -1,11 +1,3 @@
-import ctypes
-import sys
-
-import numpy as np
-import pyqtgraph
-from PyQt5 import QtWidgets, QtGui, QtCore
-
-from IDM_GUI_QT5 import Ui_MainWindow
 from func import *
 
 #show icon on windows task bar
@@ -58,9 +50,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.L1_lineEdit.editingFinished.connect(self.onL1LineEditChangeCallBack)
         self.ui.L2_lineEdit.editingFinished.connect(self.onL2LineEditChangeCallBack)
         self.ui.Lambda_lineEdit.editingFinished.connect(self.onLambdaLineEditChangeCallBack)
-        self.ui.IR_lineEdit.editingFinished.connect(self.onIRLineEditChangeCallBack)
-        self.ui.IR_lineEdit.returnPressed.connect(self.onIRLineEditChangeCallBack)
-        self.ui.IR_lineEdit.textEdited.connect(self.onIRLineEditChangeCallBack)
+
+        #Spin Box
+        self.ui.IR_doubleSpinBox.valueChanged.connect(self.onIRSpinBoxChangeCallBack)
+
 
         self.firstRun = False
 
@@ -122,7 +115,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.onUpdateGraphics()
 
-    def onIRLineEditChangeCallBack(self):
+    def onIRSpinBoxChangeCallBack(self):
+        print("i was called")
         self.onUpdateVars()
         self.onUpdateGraphics()
 
@@ -185,7 +179,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         x = np.linspace(0, 100/(self.freq), 10001)
         y1 = np.sin(x * self.freq)
-        y2 = np.sin(x*self.freq + desfazamento(self.line1, self.line2, self.refracao, self.lamb))
+        y2 = np.sin(x*self.freq + desfazamento(self.line1, self.line2, self.ir, self.lamb))
 
         self.Wave1 = pyqtgraph.PlotDataItem(x, y1, pen=self.colorQT, symbol=None)
         self.Wave2 = pyqtgraph.PlotDataItem(x, y2, pen=self.colorQT, symbol=None)
@@ -208,9 +202,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.line1 = self.ui.L1_horizontalSlider.value()*0.01
         self.line2 = self.ui.L2_horizontalSlider.value()*0.01
         self.lamb = self.ui.Lambda_horizontalSlider.value()
-        self.refracao = float(self.ui.IR_lineEdit.text())
         self.freq = LengthToFreq(int(self.ui.Lambda_horizontalSlider.value()))
-        self.ir = float(self.ui.IR_lineEdit.text())
+        self.ir = float(self.ui.IR_doubleSpinBox.value())
         self.fran=franj(self.ir,self.line1,self.line2,self.lamb)
 
 def main():
